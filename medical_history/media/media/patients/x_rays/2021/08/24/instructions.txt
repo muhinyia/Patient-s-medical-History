@@ -1,0 +1,10 @@
+after you install the virtual environment, copy the project folder i.e accomodation into this students folder and run the following commands.
+
+1. python manage.py makemigrations.
+2. python manage.py migrate
+3. python manage.py runserver.
+
+Then go to your browser and open http://127.0.0.1:8000/
+
+that way your site will be up and running
+

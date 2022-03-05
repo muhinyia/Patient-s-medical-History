@@ -1,0 +1,379 @@
+{%extends 'base3.html'%}
+<!--humanize-->
+{%load humanize%}
+<!--mathfilters-->
+{%load mathfilters%}
+<!--title-->
+{%block title%}| Admin Dashboard {%endblock%}
+
+
+<!--block content-->
+{%block content%}
+<!-- Begin Page Content -->
+<div class="container-fluid mt-2">
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h2 mb-0 text-gray-300">General Report</h1>
+        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+    </div>
+
+    <!-- Content Row -->
+    <div class="row">
+    
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-lg font-weight-bold text-primary text-uppercase mb-1">
+                                Number of Physicians</div>
+                            <div class="h1 text-center font-weight-bold text-danger">{{physicians | length}}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-ambulance fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer text-center">
+                    <a href="{%url 'admins:get_docs'%}">VIEW</a>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-lg font-weight-bold text-success text-uppercase mb-1">
+                                Number of Patients </div>
+                            <div class="h1 text-center font-weight-bold text-danger">{{patients | length}}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-users fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer text-center text-center">
+                    <a href="{%url 'admins:get_patients'%}">VIEW</a>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-lg font-weight-bold text-info text-uppercase mb-1">Total Medical Records Entered
+                            </div>
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="h1 text-center font-weight-bold text-danger">{{records | length}}</div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer text-center">
+                    <a href="{%url 'admins:get_records'%}">VIEW</a>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Pending Requests Card Example -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-lg font-weight-bold text-warning text-uppercase mb-1">
+                                Number of Reported Abuses</div>
+                            <div class="h1 text-center font-weight-bold text-danger">{{feedbacks | length}}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-comments fa-2x text-gray-300"></i>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="card-footer text-center">
+                    <a href="{%url 'admins:get_feedbacks'%}">VIEW</a>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-12 col-md-6 mb-2 ">
+        <div class="card border-left-success  shadow h-50 py-2 text-center ">
+            <div class="card-body text-center">
+                <div class="row no-gutters align-items-center ">
+                    <div class="col mr-2">
+                        <div class="text-lg font-weight-bold text-info text-uppercase mb-1">Health Facilities
+                        </div>
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mt-2">
+                                <div class="h1  font-weight-bold text-danger">{{facilities | length}}</div>
+                            </div>
+    
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-home fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer text-center">
+                <a href="{%url 'admins:get_facilities'%}">VIEW</a>
+            </div>
+        </div>
+    </div>
+
+
+<section id="actions" class="py-4 mt-0 bg-light">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <a href="#" class="btn btn-info btn-block" data-toggle="modal" data-target="#addPatientModal">
+                    <i class="fas fa-users"></i> Add Patient
+                </a>
+            </div>
+            <div class="col-md-3">
+                <a href="" class="btn btn-success btn-block" data-toggle="modal" data-target="#addPhysicianModal">
+                    <i class="fas fa-ambulance"></i> Add Physician
+                </a>
+            </div>
+
+            <div class="col-md-3">
+                <a href="#" class="btn btn-primary btn-block" data-toggle="modal" data-target="#addFacilityModal">
+                    <i class="fas fa-hospital"></i> Add A Health Facility
+                </a>
+            </div>
+
+            <div class="col-md-3">
+                <a href="{%url 'admins:index'%}" class="btn btn-success btn-block">
+                    <i class="fas fa-gavel"></i> View Reported Abuses
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{%block tables%} {%endblock%}
+</div>
+
+<!--MODALS-->
+
+<!-- ADD PATIENT MODAL -->
+<div class="modal fade" id="addPatientModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white text-center">
+                <h5 class="modal-title text-center">Add New Patient to Repository</h5>
+                <button class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{%url 'admins:add_patient'%}" method="POST">
+                    {%csrf_token%}
+                    <div class="form-group">
+                        <label for="name">Huduma ID Number</label>
+                        <input type="number" class="form-control" name="huduma_id" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="first_name">First Name</label>
+                        <input type="text" class="form-control" name="first_name" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="last_name">Last Name</label>
+                        <input type="text" class="form-control" name="last_name" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <select name="gender" id="gender" class="form-control">
+                            {%for gender in genders%}
+                            <option value="{{gender}}">{{gender}}</option>
+                            {%endfor%}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="dob">Date Of Birth</label>
+                        <input type="date" class="form-control" name="dob" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="text" class="form-control" name="phone" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="county">County</label>
+                        <select name="county" id="county" class="form-control">
+                            {%for county in counties %}
+                            <option value="{{county}}">{{county}}</option>
+                            {%endfor%}
+                        </select>
+                    </div>
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary btn-block" type="submit">Add Patient to Repository</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- ADD PHYSICIAN MODAL -->
+<div class="modal fade" id="addPhysicianModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white text-center">
+                <h5 class="modal-title text-center">Add New Physician to Repository</h5>
+                <button class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{%url 'admins:add_doc'%}" method="POST" enctype="multipart/form-data">
+                    {%csrf_token%}
+                    <div class="form-group">
+                        <label for="name">Registration Number</label>
+                        <input type="text" class="form-control" name="reg" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="first_name">First Name</label>
+                        <input type="text" class="form-control" name="first_name" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="last_name">Last Name</label>
+                        <input type="text" class="form-control" name="last_name" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="name">ID Number</label>
+                        <input type="text" class="form-control" name="id_number" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Phone</label>
+                        <input type="tel" class="form-control" name="phone" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="Email">Email</label>
+                        <input type="email" class="form-control" name="email" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">Title</label>
+                        <select name="title" id="gender" class="form-control">
+                            {%for title in titles%}
+                            <option value="{{title}}">{{title}}</option>
+                            {%endfor%}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="facility">Health Facility</label>
+                        <select name="facility" id="facility" class="form-control">
+                            {%for facility in facilities %}
+                            <option value="{{facility}}">{{facility}}</option>
+                            {%endfor%}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="profile" class="col-form-label">profile Picture</label>
+                        <input type="file" class="form-control" name="pic">
+                    </div>
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary btn-block" type="submit">Add Physician to Repository</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ADD FACILITY MODAL -->
+<div class="modal fade" id="addFacilityModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white text-center">
+                <h5 class="modal-title text-center">Add New Health Facility to Repository</h5>
+                <button class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{%url 'admins:add_facility'%}" method="POST" enctype="multipart/form-data">
+                    {%csrf_token%}
+                    <div class="form-group">
+                        <label for="name">Facility Number</label>
+                        <input type="text" class="form-control" name="facility_no" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Facility Name</label>
+                        <input type="text" class="form-control" name="name" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="level">Facility Level</label>
+                        <select name="level" id="level" class="form-control">
+                            {%for level in levels%}
+                            <option value="{{level}}">{{level}}</option>
+                            {%endfor%}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Facility Category</label>
+                        <select name="category" id="category" class="form-control">
+                            <option value="True" selected>Public</option>
+                            <option value="False" >Private</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <input type="text" class="form-control" name="address" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="city">City</label>
+                        <input type="text" class="form-control" name="city" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Phone</label>
+                        <input type="tel" class="form-control" name="phone" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="county">County</label>
+                        <select name="county" id="county" class="form-control">
+                            {%for county in counties %}
+                            <option value="{{county}}">{{county}}</option>
+                            {%endfor%}
+                        </select>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary btn-block" type="submit">Add Facility to Repository</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock%}

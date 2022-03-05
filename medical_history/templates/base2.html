@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{% static 'css/all.css'%}" />
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css'%}" />
+    <!-- Custom -->
+    <link rel="stylesheet" href="{% static 'css/style.css'%}" />
+    <!-- lightbox-->
+    <link rel="stylesheet" href="{% static 'css/lightbox.min.css'%}" />
+    <title>Patient's Medical Records System {%block title%}{%endblock%}</title>
+</head>
+
+<body id="page-top">
+    <!-- Top Bar -->
+    <section id="top-bar" class="p-3 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <i class="fas fa-phone"></i> (+254)-555-5555
+                </div>
+                <div class="col-md-4">
+                    <i class="fas fa-envelope-open"></i> contact@medicals.com
+                </div>
+                <div class="col-md-4">
+                    <div class="social text-right">
+                        <a href="#">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+
+                        <a href="#">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+
+                        <a href="#">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="#">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#">
+                            <i class="fab fa-pinterest"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <nav class="navbar navbar-expand-sm navbar-dark bg-success top">
+        <div class="container">
+            <a href="{%url 'accounts:dashboard'%}" class="navbar-brand">
+                <img src="{%static 'img/mlogo.png'%}" width="100" height="100" alt="" />
+            </a>
+
+            <div class="row text-center">
+                <div class="col-md-12 ">
+                    <h1>Patient's Medical Records System</h1>
+                   {%block caption%}  {%endblock%}
+                </div>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                <a href="{%url 'accounts:logout'%}" class="nav-link">
+                <i class="fas fa-user-times"></i> Logout
+                </a>
+                </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+   
+    <section class="main">
+        {% block content %}{%endblock%}
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="main-footer" class="bg-info text-white mt-5 p-5">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <p class="lead text-center">
+                        Copyright &copy;
+                        <span id="year"></span>
+                        Patient's Medical Records System
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/jquery-3.3.1.min.js'%} "></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js'%} "></script>
+    <script src="{% static 'js/lightbox.min.js'%} "></script>
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>

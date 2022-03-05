@@ -1,0 +1,31 @@
+{%extends 'accounts/dashboard_base.html'%}
+{%block title%} | Health Officer's Dashboard {%endblock%}
+{%block content%}
+
+    <section id="register" class="bg-light py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 mx-auto">
+                    <div class="card">
+                        <div class="card-header bg-primary text-white text-center">
+                            <h4>
+                                <i class="fas fa-search"></i> Enter Patient's HUDUMA ID to Search
+                            </h4>
+                        </div>
+                        <div class="card-body ">
+                            <form method="POST" action="{%url 'patient:get_patient'%}">
+                                {%csrf_token%}
+                                <div class="form-group">
+                                    <label for="huduma_id" class="text-danger">Huduma ID Number:</label>
+                                    <input type="number" name="huduma_id" class="form-control text-sm is-valid" placeholder="Enter Huduma ID here" required>
+                                </div>
+                                <input type="submit" value="Search For Patient's Records" class="btn btn-success btn-block">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+{%endblock%}

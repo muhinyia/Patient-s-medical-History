@@ -1,0 +1,116 @@
+{%extends 'base.html'%}
+<!--humanize-->
+{%load humanize%}
+<!--mathfilters-->
+{%load mathfilters%}
+<!--title-->
+{%block title%}| Admin Dashboard {%endblock%}
+
+
+<!--block content-->
+{%block content%}
+<!-- ACTIONS -->
+<section class="text-white bg-success">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-12">
+                <h1 class="display-4">Admin's Dashboard</h1>
+                <p class="lead">Management Page </p>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="actions" class="py-4 mt-0 bg-light">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <a href="{%url 'counseling:admins'%}" class="btn btn-info btn-block">
+                    <i class="fas fa-folder"></i> Active Sessions
+                </a>
+            </div>
+            <div class="col-md-3">
+      <a href="{%url 'counseling:past_sessions'%}" class="btn btn-success btn-block">
+    <i class="fas fa-folder"></i> Sessions Held in the Past
+</a>            
+</div>
+           
+    <div class="col-md-3">
+        <a href="{%url 'counseling:counselors'%}" class="btn btn-info btn-block">
+            <i class="fas fa-folder"></i> Our Counselors
+        </a>
+    </div>
+
+    <div class="col-md-3">
+        <a href="{%url 'counseling:students'%}" class="btn btn-success btn-block">
+            <i class="fas fa-folder"></i> Students
+        </a>
+    </div>
+ </div>
+</div>
+</section>
+{%include 'partials/_alerts.html'%}
+
+
+<!-- POSTS -->
+{%if sessions%}
+<section id="posts">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                   
+                    <div class="card-header">
+                        <h4 class="text-center">Active Sessions</h4>
+                    </div>
+                    <table class="table table-striped">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Session ID</th>
+                                <th>Session Date</th>
+                                <th>Student</th>
+                                <th>Topic</th>
+                                <th>Counselor Assigned</th>
+                                <th>Action</th>
+                               
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {%for session in sessions%}
+                            <tr>
+                                <td>{{session.id}} </td>
+                                <td>{{session.session_date}}</td>
+                                <td>{{session.student}}</td>
+                                <td>{{session.topic}}</td>
+                                <td>{{session.has_counselor}}</td>
+                                
+                                {%ifequal session.has_counselor False%}
+                                <td>
+                                    <a href="{%url 'counseling:session_to_assign' session.id%}" class="btn btn-secondary">
+                                        <i class="fas fa-check"></i> Assign Counselor
+                                    </a>
+                                </td>
+                                {%endifequal%}
+                            </tr>
+                            {%endfor%}
+                        </tbody>
+                    </table>
+                   
+                    
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</section>
+{%else%}
+<div class="warning">
+    <p class="lead display-4 ">
+        There are no Sessions today
+    </p>
+    <p class="lead">
+        Sessions list appears here
+    </p>
+</div>
+{%endif%}
+
+{%endblock%}

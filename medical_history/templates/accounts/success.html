@@ -1,0 +1,30 @@
+{%extends 'base2.html'%}
+<!--title-->
+{%block title%}|Record entered{%endblock%}
+<!--active-->
+{%block active%}Record entered Successfully{%endblock%}
+<!--block content-->
+{%block content%}
+<div class="container">
+    <div class="row py-5">
+        <div class="col">
+            <div class="card text-center badge-primary">
+                <div class="card-header display-1">
+                    <h2><u>Record Entered Successfully </u></h2>
+                </div>
+                <div class="card-body">
+                    <div class="card-text lead">
+                        You made a new record about the patient successfully.
+
+                        <p class="display-3">
+                            Thankyou for Serving this nation competently.We truly treasure you
+                        </p>
+                    </div>
+                    <a class="btn btn-outline-success btn-block" href="{%url 'accounts:dashboard'%}">Back Home</a>
+                </div>
+                <hr />
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock%}

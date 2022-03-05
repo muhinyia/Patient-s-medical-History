@@ -1,0 +1,234 @@
+{%extends 'patient/base.html'%}
+<!--main-->
+{%load static%}
+<!--main-->
+{%load humanize%}
+<!--main-->
+{%block title%} | More Details {%endblock%}
+<!--main-->
+{%block content%}
+<!--math filters-->
+{%load mathfilters%}
+
+<!-- Breadcrumb -->
+<section id="bc" class="mt-3">
+    <div class="container">
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{%url 'patient:get_patient_back' record.patient.huduma_id %}">Go Back to Records Main Page</a>
+                </li>
+                
+                <li class="breadcrumb-item active">{{record.patient.first_name}} {{record.patient.last_name}}'s Record Number {{record.id}} </li>
+            </ol>
+        </nav>
+    </div>
+</section>
+
+<!-- Alerts -->
+
+{%include 'partials/_alerts.html'%}
+
+<section id="dashboard" class="py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header bg-info">
+                        <h4 class="text-center text-white ">Record Number: {{record.id}} for {{record.patient.first_name}} {{record.patient.last_name}} </h4>
+                    </div>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr class="text-danger">
+                                <th scope="row">PARTICULARS</th>
+                                <th scope="row">VALUES</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-info">Date of this Treatment</td>
+                                <td>{{record.date}}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-info">Presenting Symptoms</td>
+                                <td>{{record.presenting_symptoms|title}}</td>
+
+                            </tr>
+                            <tr>
+                                <td class="text-info">Lab Tests</td>
+                                <td>{{record.lab_works|title}}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-info">Diagnosis Made</td>
+                                <td>{{record.diagnosis_made|title}}</td>
+
+                            </tr>
+                            <tr>
+                                <td class="text-info">Treatment Given</td>
+                                <td>{{record.treatment_offered|title}}</td>
+
+                            </tr>
+                            <tr>
+                                <td class="text-info">Health Practioner's Comment</td>
+                                <td>{{record.comment|title}}</td>
+                            
+                            </tr>
+
+                            <tr>
+                                <td class="text-info">Relevant Documents <small>e.g x-rays and other support docs</small></td>
+                                <td>{{record.docs|title}}</td>
+                            
+                            </tr>
+                            
+                            <tr>
+                                <td colspan="2" class="text-dark text-center"><h2>Other Details</h2></td>
+                                
+                            
+                            </tr>
+                            <tr>
+                                <td class="text-info">Health Facility Visited</td>
+                                <td>{{record.facility|title}}</td>
+
+                            </tr>
+                            <tr>
+                                <td class="text-info">Health Facility Level</td>
+                                <td>{{record.facility.facility_level|upper}}</td>
+
+                            </tr>
+                            <tr>
+                                <td class="text-info">Intervening Health Practioner </td>
+                                <td>{{record.health_officer.title|title}}. {{record.health_officer.user.first_name|title}} {{record.health_officer.user.last_name|title}}</td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div class="mt-5">
+    <p class="text-danger text-center">You feel the treatment offered to this patient wasn't worth? </p>
+        
+     <p class="text-danger text-center">  Please let us know </p>
+    
+  <p class="text-danger text-center"> <a href="" data-toggle="modal" data-target="#feedbackModal">Report Here</a> </p>
+    
+  <p class="small text-dark text-center">Help us achieve sanity in the Health sector</p>
+</div>
+</section>
+<!--ADDING NEW RECORD-->
+<div class="row">
+    <div class="col-md-12">
+        <span class="text-center btn btn-primary btn-block" data-toggle="modal" data-target="#enterRecord">
+            PLEASE RECORD ABOUT TODAY'S TREATMENT HERE
+        </span>
+    </div>
+</div>
+
+
+
+
+
+<!-- FEEDBACK Modal -->
+<div class="modal fade" id="feedbackModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h5 class="modal-title text-white" >Report a purported Patient Mistreatment</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                            <small class="text-danger">NOTE:  The information given here-in can be used in a court of law <br><br>
+                                Nevertheless, we will keep you anonymous as we investigate over this matter.<br><br>
+                                PLEASE BE HONEST</small>
+
+                <form action="{%url 'feedback:add_feedback'%}" method="POST">
+                    {% csrf_token %}
+                    <!--GET THIS MEDIC's ID -->
+                    <input type="hidden" name="record" value="{{record.id}}">
+                    <input type="hidden" name="officer" value="{{user}}">
+                    <div class="form-group">
+                        <label for="email" class="col-form-label" >Your Email:</label>
+                        <input type="email" name="email" class="form-control" value="{{user.email}}"  readonly required>
+                    </div>
+                    <!--Category of the matter(mistreatment)-->
+                    <div class="form-group">
+                        <label for="message" class="col-form-label">Why Do you think this patient was mistreated? (please explain)</label>
+                        <textarea name="message" class="form-control" required></textarea>
+                    </div>
+                    <hr>
+                    <input type="submit" value="Send Feedback" class="btn btn-block btn-success">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- ADD RECORD MODAL -->
+<div class="modal fade" id="enterRecord">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white text-center">
+                <h5 class="modal-title text-center">Document About today's treatment here</h5>
+                <button class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{%url 'patient:enter_record' %}" method="POST" enctype="multipart/form-data">
+                    {%csrf_token%}
+                    <input type="hidden" name="officer" value="{{user}}">
+                    <div class="form-group">
+                        <label for="name" class="col-form-label">Huduma ID Number</label>
+                        <input type="text" class="form-control" name="huduma_id" value="{{record.patient.huduma_id}}" readonly required />
+                    </div>
+                    <div class="form-group">
+                        <label for="symptoms" class="col-form-label">Presenting Symptoms</label>
+                        <input type="text" class="form-control" name="symptoms" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="lab_works" class="col-form-label">Lab Work Performed</label>
+                        <input type="text" class="form-control" name="lab_works" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="diagnosis" class="col-form-label">Diagnosis Made</label>
+                        <input type="text" class="form-control" name="diagnosis" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="treatment" class="col-form-label">Treatment Offered</label>
+                        <input type="text" class="form-control" name="treatment" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="comment" class="col-form-label">Comments</label>
+                        <textarea name="comment" class="form-control" id="" cols="30" rows="5"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="documents"class="col-form-label">Attach Any Relevant Document:</label> 
+                        <small class="text-danger">Attach relevant documents e.g lab reports, consultant reports, x_ray reports, etc</small>
+                        <input type="file" class="form-control" name="documents" >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="x_ray"class="col-form-label">X_ray Film:</label>
+                        <small class="text-primary">Attach X_rays image films (if Any)</small>
+                        <input type="file" class="form-control" name="x_ray">
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary btn-block" type="submit">Add Treatment Record to Repository</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{%endblock%}

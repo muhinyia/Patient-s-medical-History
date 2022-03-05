@@ -1,0 +1,63 @@
+{%extends 'base3.html'%}
+<!--humanize-->
+{%load humanize%}
+<!--mathfilters-->
+{%load mathfilters%}
+<!--title-->
+{%block title%}| Admin Dashboard {%endblock%}
+
+
+<!--block content-->
+{%block content%}
+
+<div class="d-sm-flex align-items-center justify-content-between mt-4 mb-2">
+    <h1 class="h3 mb-0 text-gray-300">Health Facilities</h1>
+    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+            class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+</div>
+
+<div class="card-body">
+    <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Facility ID</th>
+                    <th>Facility Name</th>
+                    <th>Address</th>
+                    <th>City</th>
+                    <th>Phone</th>
+                    <th>County</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                {%if facilities%}
+                {%for facility in facilities %}
+                <tr>
+                    <td>{{facility.facility_no}}</td>
+                    <td>{{facility.name|title}}</td>
+                    <td>{{facility.address|title}}</td>
+                    <td>{{facility.city|title}}</td>
+                    <td>{{facility.phone}}</td>
+                    <td>{{facility.county}}</td>
+
+                    {%endfor%}
+                    {%else%}
+                    <p class="text-center lead">
+                        No facilities to show.
+                    </p>
+                    {%endif%}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!--Go BACk-->
+<div class="row">
+    <div class="col-md-12">
+        <a class="btn btn-primary btn-block text-center" href="{%url 'admins:index' %}">Go Back to Dashboard</a>
+    </div>
+</div>
+
+
+{%endblock%}

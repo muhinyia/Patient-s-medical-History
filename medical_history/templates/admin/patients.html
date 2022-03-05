@@ -1,0 +1,64 @@
+{%extends 'base3.html'%}
+<!--humanize-->
+{%load humanize%}
+<!--mathfilters-->
+{%load mathfilters%}
+<!--title-->
+{%block title%}| Admin Dashboard {%endblock%}
+
+
+<!--block content-->
+{%block content%}
+
+<div class="d-sm-flex align-items-center justify-content-between mt-4 mb-2">
+    <h1 class="h3 mb-0 text-gray-300">Registered Patients</h1>
+    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+            class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+</div>
+
+<div class="card-body">
+    <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Huduma ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Gender</th>
+                    <th>DOB</th>
+                    <th>Phone</th>
+                    <th>County</th>
+                </tr>
+            </thead>
+            <tbody>
+                {%if patients%}
+                {%for patient in patients %}
+                <tr>
+                    <td>{{patient.huduma_id}}</td>
+                    <td>{{patient.first_name|title}}</td>
+                    <td>{{patient.last_name|title}}</td>
+                    <td>{{patient.gender}}</td>
+                    <td>{{patient.dob}}</td>
+                    <td>{{patient.phone}}</td>
+                    <td>{{patient.county|title}}</td>
+
+                    {%endfor%}
+                    {%else%}
+                    <p class="text-center lead">
+                        No  patients records to show.
+                    </p>
+                    {%endif%}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!--Go BACk-->
+<div class="row">
+    <div class="col-md-12">
+        <a class="btn btn-primary btn-block text-center" href="{%url 'admins:index' %}">Go Back to Dashboard</a>
+    </div>
+</div>
+
+
+{%endblock%}
